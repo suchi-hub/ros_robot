@@ -1,7 +1,4 @@
 #!/usr/bin/python3
-
-import rospy
-from std_msgs.msg import String
 import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -63,34 +60,3 @@ class Wheelie:
     def backward(self, speed=50):
         self.leftMotor.setSpeed(-speed)
         self.rightMotor.setSpeed(-speed)
-
-class Publisher:
-    def __init__(self):
-        rospy.init_node('command_publisher', anonymous=True)
-        self.pub = rospy.Publisher('command', String, queue_size=10)
-        self.rate = rospy.Rate(1)
-        while not rospy.is_shutdown():
-            command = f"Time is {rospy.get_time()}"
-            # command = input("Enter command: ")
-            rospy.loginfo(command)
-            self.pub.publish(command)
-            self.rate.sleep()
-        
-class Subscriber:
-    def __init__(self):
-        rospy.init_node('command_subscriber', anonymous=True)
-        rospy.Subscriber('command', String, self.callback)
-        rospy.spin()
-
-    def callback(self, data):
-        rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
-
-
-def main():
-    pub = Publisher()
-    sub = Subscriber()
-    # wheelie = Wheelie()
-
-if __name__ == "__main__":
-    main()
-

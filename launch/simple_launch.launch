@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-<node name="tbs" pkg="turtlesim" type="turtlesim_node"/>
-<node name="tbp" pkg="turtlesim" type="turtle_teleop_key"/>
+<node name="my_pub" pkg="ros_robot" type="ros_publisher.py"/>
+<node name="my_sub" pkg="ros_robot" type="ros_subscriber.py"/>
 
 </launch>
